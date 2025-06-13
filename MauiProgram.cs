@@ -1,5 +1,8 @@
 using crud_maui.DataAcess;
+using crud_maui.ViewModels;
+using crud_maui.Views;
 using Microsoft.Extensions.Logging;
+using SQLitePCL;
 
 namespace crud_maui
 {
@@ -16,9 +19,19 @@ namespace crud_maui
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            Batteries.Init();
             var dbContext = new EmpregadoDbContext();
             dbContext.Database.EnsureCreated();
             dbContext.Dispose();
+
+            builder.Services.AddDbContext<EmpregadoDbContext>();
+            builder.Services.AddTransient<ColaboradorPage>();
+            builder.Services.AddTransient<EmpregadoViewModel>();
+
+            builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<MainViewModel>();
+
+            Routing.RegisterRoute(nameof(ColaboradorPage), typeof(ColaboradorPage));
 
 #if DEBUG
             builder.Logging.AddDebug();

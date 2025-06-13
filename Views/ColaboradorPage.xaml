@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="crud_maui.Views.ColaboradorPage"
+    Title="{Binding TituloPagina}"
+    >
+
+    <VerticalStackLayout
+        Padding="15"
+        >
+        <ActivityIndicator
+            IsVisible="{Binding LoadingVisivel}"
+            IsRunning="{Binding LoadingVisible}"
+            Color="Blue"
+            HeightRequest="30"
+        />
+
+        <Label
+            Text="Nome Completo"
+        />
+        <Entry
+            Text="{Binding EmpregadoDto.NomeCompleto}"
+            Margin="0,0,0,10"
+        />
+
+        <Label
+            Text="Email"
+        />
+        <Entry
+            Text="{Binding EmpregadoDto.Email}"
+            Margin="0,0,0,10"
+        />
+
+        <Label
+            Text="Salário"
+        />
+        <Entry
+            Text="{Binding EmpregadoDto.Salario}"
+            Keyboard="Numeric"
+            Margin="0,0,0,10"
+        />
+
+        <Label
+            Text="Data"
+        />
+        <DatePicker
+            Date="{Binding EmpregadoDto.DataContratacao}"
+            Margin="0,0,0,10"
+        />
+
+        <Button
+            Text="Salvar"
+            Command="{Binding SalvarCommand}"
+            Background="Green"
+        />
+
+    </VerticalStackLayout>
+</ContentPage>
