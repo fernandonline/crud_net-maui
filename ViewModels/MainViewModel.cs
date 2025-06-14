@@ -22,7 +22,7 @@ namespace crud_maui.ViewModels
 
         public async Task Obter()
         {
-            var lista = await _dbContext.Empregados.ToListAsync();
+            var lista = await _dbContext.Empregados.AsNoTracking().ToListAsync();
             ListaEmpregado.Clear();
             foreach (var item in lista)
                 ListaEmpregado.Add(item);
@@ -52,5 +52,4 @@ namespace crud_maui.ViewModels
             ListaEmpregado.Remove(empregado);
         }
     }
-
 }

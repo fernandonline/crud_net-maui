@@ -67,10 +67,8 @@ namespace crud_maui.ViewModels
             }
 
             await _dbContext.SaveChangesAsync();
-
             LoadingVisivel = false;
-            await Shell.Current.Navigation.PopAsync();
+            await Shell.Current.GoToAsync("..");
         }
     }
-
 }

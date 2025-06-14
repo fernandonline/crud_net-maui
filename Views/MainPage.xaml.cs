@@ -13,9 +13,7 @@ public partial class MainPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
-        if (BindingContext is MainViewModel vm)
-            await vm.Obter();
+        await Task.Delay(100);
+        await ((MainViewModel)BindingContext).Obter();
     }
-
 }

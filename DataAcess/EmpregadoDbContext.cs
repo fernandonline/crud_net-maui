@@ -1,5 +1,5 @@
 using crud_maui.Models;
-using crud_maui.Ultilidade;
+using crud_maui.Utils;
 using Microsoft.EntityFrameworkCore;
 
 // Mudar Empregado pra Colaborador;
