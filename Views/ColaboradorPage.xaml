@@ -11,7 +11,7 @@
         >
         <ActivityIndicator
             IsVisible="{Binding LoadingVisivel}"
-            IsRunning="{Binding LoadingVisible}"
+            IsRunning="{Binding LoadingVisivel}"
             Color="Blue"
             HeightRequest="30"
         />
@@ -20,7 +20,7 @@
             Text="Nome Completo"
         />
         <Entry
-            Text="{Binding EmpregadoDto.NomeCompleto}"
+            Text="{Binding Empregado.NomeCompleto}"
             Margin="0,0,0,10"
         />
 
@@ -28,7 +28,7 @@
             Text="Email"
         />
         <Entry
-            Text="{Binding EmpregadoDto.Email}"
+            Text="{Binding Empregado.Email}"
             Margin="0,0,0,10"
         />
 
@@ -36,7 +36,7 @@
             Text="Salário"
         />
         <Entry
-            Text="{Binding EmpregadoDto.Salario}"
+            Text="{Binding Empregado.Salario}"
             Keyboard="Numeric"
             Margin="0,0,0,10"
         />
@@ -45,7 +45,7 @@
             Text="Data"
         />
         <DatePicker
-            Date="{Binding EmpregadoDto.DataContratacao}"
+            Date="{Binding Empregado.DataContratacao}"
             Margin="0,0,0,10"
         />
 

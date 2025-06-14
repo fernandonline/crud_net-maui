@@ -1,12 +1,9 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.EntityFrameworkCore;
-using crud_maui.Views;
-using crud_maui.Models;
-using crud_maui.Ultilidade;
-using crud_maui.DTOs;
 using crud_maui.DataAcess;
+using crud_maui.Models;
+using crud_maui.Views;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 
 namespace crud_maui.ViewModels
@@ -16,83 +13,44 @@ namespace crud_maui.ViewModels
         private readonly EmpregadoDbContext _dbContext;
 
         [ObservableProperty]
-        private ObservableCollection<EmpregadoDTO> listaEmpregado = new ObservableCollection<EmpregadoDTO>();
-    
+        private ObservableCollection<Empregado> listaEmpregado = new();
+
         public MainViewModel(EmpregadoDbContext context)
         {
             _dbContext = context;
-
-            MainThread.BeginInvokeOnMainThread(new Action(async () => await Obter()));
-
-            WeakReferenceMessenger.Default.Register<EmpregadoMensageria>(this, (r, m) => EmpregadoMensagemRecebida(m.Value));
         }
 
         public async Task Obter()
         {
             var lista = await _dbContext.Empregados.ToListAsync();
-            if(lista.Count != 0)
-            {
-                ListaEmpregado.Clear();
-                foreach (var item in lista)
-                {
-                    ListaEmpregado.Add(new EmpregadoDTO
-                    {
-                        IdEmpregado = item.IdEmpregado,
-                        NomeCompleto = item.NomeCompleto,
-                        Email = item.Email,
-                        Salario = item.Salario,
-                        DataContratacao = item.DataContratacao
-                    });
-                }
-            }
-        }
-
-        private void EmpregadoMensagemRecebida(EmpregadoMensagem empregadoMensagem)
-        {
-            var empregadoDto = empregadoMensagem.EmpregadoDto;
-            if( empregadoMensagem.Criando)
-            {
-                ListaEmpregado.Add(empregadoDto);
-            }
-            else
-            {
-                var encontrado = ListaEmpregado
-                    .First(e => e.IdEmpregado == empregadoDto.IdEmpregado);
-
-                encontrado.NomeCompleto = empregadoDto.NomeCompleto;
-                encontrado.Email = empregadoDto.Email;
-                encontrado.Salario = empregadoDto.Salario;
-                encontrado.DataContratacao = empregadoDto.DataContratacao;
-            }
+            ListaEmpregado.Clear();
+            foreach (var item in lista)
+                ListaEmpregado.Add(item);
         }
 
         [RelayCommand]
         private async Task Criar()
         {
-            var uri = $"{nameof(ColaboradorPage)}?id=0";
-            await Shell.Current.GoToAsync(uri);
+            await Shell.Current.GoToAsync($"{nameof(ColaboradorPage)}?id=0");
         }
 
         [RelayCommand]
-        private async Task Editar(EmpregadoDTO empregadoDto)
+        private async Task Editar(Empregado empregado)
         {
-            var uri = $"{nameof(ColaboradorPage)}?id={empregadoDto.IdEmpregado}";
-            await Shell.Current.GoToAsync(uri);
+            await Shell.Current.GoToAsync($"{nameof(ColaboradorPage)}?id={empregado.IdEmpregado}");
         }
 
         [RelayCommand]
-        private async Task Deletar(EmpregadoDTO empregadoDto)
+        private async Task Deletar(Empregado empregado)
         {
-            bool confirmacao = await Shell.Current.DisplayAlert("Confirmação", "Deseja realmente excluir?", "Sim", "Não");
-            if (confirmacao)
-            {
-                var encontrado = await _dbContext.Empregados.FirstAsync(e => e.IdEmpregado == empregadoDto.IdEmpregado);
-                _dbContext.Empregados.Remove(encontrado);
-                await _dbContext.SaveChangesAsync();
-                ListaEmpregado.Remove(empregadoDto);
+            bool confirmar = await Shell.Current.DisplayAlert("Confirmação", "Deseja realmente excluir?", "Sim", "Não");
+            if (!confirmar) return;
 
-            }
+            var encontrado = await _dbContext.Empregados.FirstAsync(e => e.IdEmpregado == empregado.IdEmpregado);
+            _dbContext.Empregados.Remove(encontrado);
+            await _dbContext.SaveChangesAsync();
+            ListaEmpregado.Remove(empregado);
         }
-
     }
+
 }
