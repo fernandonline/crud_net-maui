@@ -50,6 +50,18 @@ namespace crud_maui.ViewModels
         [RelayCommand]
         private async Task Salvar()
         {
+            if (string.IsNullOrWhiteSpace(Colaborador.NomeCompleto))
+            {
+                await Shell.Current.DisplayAlert("Erro", "O nome completo é obrigatório.", "OK");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(Colaborador.Email) || !Colaborador.Email.Contains("@"))
+            {
+                await Shell.Current.DisplayAlert("Erro", "Informe um e-mail válido.", "OK");
+                return;
+            }
+
             LoadingVisivel = true;
 
             if (IdColaborador == 0)

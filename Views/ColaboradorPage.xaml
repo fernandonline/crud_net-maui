@@ -37,6 +37,7 @@
         />
         <Entry
             Text="{Binding Colaborador.Salario}"
+            Placeholder="Voluntário"
             Keyboard="Numeric"
             Margin="0,0,0,10"
         />

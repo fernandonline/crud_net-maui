@@ -10,5 +10,6 @@ namespace crud_maui.Models
         public string Email { get; set; }
         public decimal Salario { get; set; }
         public DateTime DataContratacao { get; set; }
+
     }
 }
