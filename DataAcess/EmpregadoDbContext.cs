@@ -2,26 +2,24 @@ using crud_maui.Models;
 using crud_maui.Utils;
 using Microsoft.EntityFrameworkCore;
 
-// Mudar Empregado pra Colaborador;
-
 namespace crud_maui.DataAcess
 {
-    public class EmpregadoDbContext : DbContext
+    public class ColaboradorDbContext : DbContext
     {
-        public DbSet<Empregado> Empregados { get; set; }
+        public DbSet<Colaborador> Colaboradores { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string conectionDB = $"Filename={ConnectDB.DevolverRota("empregados.db")}";
+            string conectionDB = $"Filename={ConnectDB.DevolverRota("colaboradores.db")}";
             optionsBuilder.UseSqlite(conectionDB);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Empregado>(entity =>
+            modelBuilder.Entity<Colaborador>(entity =>
             {
-                entity.HasKey(col => col.IdEmpregado);
-                entity.Property(col => col.IdEmpregado).IsRequired().ValueGeneratedOnAdd();
+                entity.HasKey(col => col.IdColaborador);
+                entity.Property(col => col.IdColaborador).IsRequired().ValueGeneratedOnAdd();
             });
         }
     }

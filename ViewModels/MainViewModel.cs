@@ -10,22 +10,22 @@ namespace crud_maui.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
-        private readonly EmpregadoDbContext _dbContext;
+        private readonly ColaboradorDbContext _dbContext;
 
         [ObservableProperty]
-        private ObservableCollection<Empregado> listaEmpregado = new();
+        private ObservableCollection<Colaborador> listaColaborador = new();
 
-        public MainViewModel(EmpregadoDbContext context)
+        public MainViewModel(ColaboradorDbContext context)
         {
             _dbContext = context;
         }
 
         public async Task Obter()
         {
-            var lista = await _dbContext.Empregados.AsNoTracking().ToListAsync();
-            ListaEmpregado.Clear();
+            var lista = await _dbContext.Colaboradores.AsNoTracking().ToListAsync();
+            ListaColaborador.Clear();
             foreach (var item in lista)
-                ListaEmpregado.Add(item);
+                ListaColaborador.Add(item);
         }
 
         [RelayCommand]
@@ -35,21 +35,21 @@ namespace crud_maui.ViewModels
         }
 
         [RelayCommand]
-        private async Task Editar(Empregado empregado)
+        private async Task Editar(Colaborador colaborador)
         {
-            await Shell.Current.GoToAsync($"{nameof(ColaboradorPage)}?id={empregado.IdEmpregado}");
+            await Shell.Current.GoToAsync($"{nameof(ColaboradorPage)}?id={colaborador.IdColaborador}");
         }
 
         [RelayCommand]
-        private async Task Deletar(Empregado empregado)
+        private async Task Deletar(Colaborador colaborador)
         {
             bool confirmar = await Shell.Current.DisplayAlert("Confirmação", "Deseja realmente excluir?", "Sim", "Não");
             if (!confirmar) return;
 
-            var encontrado = await _dbContext.Empregados.FirstAsync(e => e.IdEmpregado == empregado.IdEmpregado);
-            _dbContext.Empregados.Remove(encontrado);
+            var encontrado = await _dbContext.Colaboradores.FirstAsync(e => e.IdColaborador == colaborador.IdColaborador);
+            _dbContext.Colaboradores.Remove(encontrado);
             await _dbContext.SaveChangesAsync();
-            ListaEmpregado.Remove(empregado);
+            ListaColaborador.Remove(colaborador);
         }
     }
 }

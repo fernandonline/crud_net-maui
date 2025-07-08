@@ -20,7 +20,7 @@
             Text="Nome Completo"
         />
         <Entry
-            Text="{Binding Empregado.NomeCompleto}"
+            Text="{Binding Colaborador.NomeCompleto}"
             Margin="0,0,0,10"
         />
 
@@ -28,7 +28,7 @@
             Text="Email"
         />
         <Entry
-            Text="{Binding Empregado.Email}"
+            Text="{Binding Colaborador.Email}"
             Margin="0,0,0,10"
         />
 
@@ -36,7 +36,7 @@
             Text="Salário"
         />
         <Entry
-            Text="{Binding Empregado.Salario}"
+            Text="{Binding Colaborador.Salario}"
             Keyboard="Numeric"
             Margin="0,0,0,10"
         />
@@ -45,7 +45,7 @@
             Text="Data"
         />
         <DatePicker
-            Date="{Binding Empregado.DataContratacao}"
+            Date="{Binding Colaborador.DataContratacao}"
             Margin="0,0,0,10"
         />
 

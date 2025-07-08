@@ -2,10 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace crud_maui.Models
 {
-    public class Empregado
+    public class Colaborador
     {
         [Key]
-        public int IdEmpregado { get; set; }
+        public int IdColaborador { get; set; }
         public string NomeCompleto { get; set; }
         public string Email { get; set; }
         public decimal Salario { get; set; }
